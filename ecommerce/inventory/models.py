@@ -116,39 +116,6 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-
-class ProductType(models.Model):
-    """
-    Product type table
-    """
-
-    name = models.CharField(
-        max_length=255,
-        unique=True,
-        null=False,
-        blank=False,
-        verbose_name=_("type of product"),
-        help_text=_("format: required, unique, max-255"),
-    )
-
-    def __str__(self):
-        return self.name
-
-
-class Brand(models.Model):
-    """
-    Product brand table
-    """
-
-    name = models.CharField(
-        max_length=255,
-        unique=True,
-        null=False,
-        blank=False,
-        verbose_name=_("brand name"),
-        help_text=_("format: required, unique, max-255"),
-    )
-
 class ProductAttribute(models.Model):
     """
     Product attribute table
@@ -172,6 +139,44 @@ class ProductAttribute(models.Model):
 
     def __str__(self):
         return self.name
+
+class ProductType(models.Model):
+    """
+    Product type table
+    """
+
+    name = models.CharField(
+        max_length=255,
+        unique=True,
+        null=False,
+        blank=False,
+        verbose_name=_("type of product"),
+        help_text=_("format: required, unique, max-255"),
+    )
+    product_type_attribute = models.ManyToManyField(
+        ProductAttribute,
+        related_name="product_type_attribute",
+        through="ProductTypeAttribute",
+    )
+
+    def __str__(self):
+        return self.name
+
+
+class Brand(models.Model):
+    """
+    Product brand table
+    """
+
+    name = models.CharField(
+        max_length=255,
+        unique=True,
+        null=False,
+        blank=False,
+        verbose_name=_("brand name"),
+        help_text=_("format: required, unique, max-255"),
+    )
+
 
 
 class ProductAttributeValue(models.Model):
@@ -421,6 +426,6 @@ class ProductTypeAttribute(models.Model):
         related_name="producttype",
         on_delete=models.PROTECT,
     )
+
     class Meta:
         unique_together = (("product_attribute", "product_type"),)
-
