@@ -25,7 +25,7 @@ class Category(MPTTModel):
         help_text=_(
             "format: required, letters, numbers, underscore, or hyphens"
         ),
-        
+
     )
     is_active = models.BooleanField(
         default=True,
@@ -100,6 +100,7 @@ class Product(models.Model):
         verbose_name=_("product visibility"),
         help_text=_("format: true=product visible"),
     )
+
     created_at = models.DateTimeField(
         auto_now_add=True,
         editable=False,
@@ -196,8 +197,6 @@ class ProductAttributeValue(models.Model):
         return f"{self.product_attribute.name} : {self.attribute_value}"
 
 
-
-
 class ProductInventory(models.Model):
     """
     Product inventory table
@@ -236,6 +235,14 @@ class ProductInventory(models.Model):
     is_active = models.BooleanField(
         default=True,
         verbose_name=_("product visibility"),
+        help_text=_("format: true=product visible"),
+    )
+    is_default = models.BooleanField(
+        unique=False,
+        null=False,
+        blank=False,
+        default=True,
+        verbose_name=_("product default"),
         help_text=_("format: true=product visible"),
     )
     retail_price = models.DecimalField(
@@ -382,7 +389,6 @@ class Stock(models.Model):
     )
 
 
- 
 class ProductAttributeValues(models.Model):
     """
     Product attribute values link table
@@ -397,9 +403,24 @@ class ProductAttributeValues(models.Model):
         ProductInventory,
         related_name="productattributevaluess",
         on_delete=models.PROTECT,
-        
+
     )
 
     class Meta:
         unique_together = (("attributevalues", "productinventory"),)
+
+
+class ProductTypeAttribute(models.Model):
+    product_attribute = models.ForeignKey(
+        ProductAttribute,
+        related_name="productattribute",
+        on_delete=models.PROTECT,
+    )
+    product_type = models.ForeignKey(
+        ProductType,
+        related_name="producttype",
+        on_delete=models.PROTECT,
+    )
+    class Meta:
+        unique_together = (("product_attribute", "product_type"),)
 

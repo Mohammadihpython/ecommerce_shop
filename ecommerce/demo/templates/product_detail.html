@@ -2,6 +2,14 @@
 {% load static %}
 {% block content %}
 product_detail
+<ul>
+    {% for x in data %}
+    
+    <li>{{x.product__name}}</li>
+    <li>{{x.id}}</li>
+    <li>{{x.product_inventory__units}}</li>
+    {% endfor %}
+</ul>
 
 
 
