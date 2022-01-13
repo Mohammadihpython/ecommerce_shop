@@ -1,6 +1,6 @@
 from django.urls import path
 from ecommerce.demo import views
-from ecommerce.demo.views import Category,ProductByCategory,ProductDetail
+from ecommerce.demo.views import Category,ProductByCategory,product_detail
 
 
 
@@ -11,5 +11,5 @@ urlpatterns = [
   
     path('categories/',Category.as_view(), name="categories"),
     path('product-by-category/<slug:category>/',ProductByCategory.as_view(), name="product_by_category"),
-    path('<slug:slug>/',ProductDetail.as_view(), name="product-detail"),
+    path('<slug:slug>/',product_detail, name="product-detail"),
 ]

@@ -5,16 +5,14 @@ from ecommerce.inventory.models import (Brand, Category, Media, Product,
                                         ProductAttributeValues,
                                         ProductInventory, ProductType, Stock)
 
-
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    fields = ('name', 'description', 'parent', 'slug')
-
-
 admin.site.register(Brand)
+
+admin.site.register(Category)
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    
+    search_fields = ("name",)
     filter_horizontal = ("category",)
 
 
