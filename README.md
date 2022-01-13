@@ -5,6 +5,8 @@ use Docker for use postgresql
 make a managemend command to add your fixture data to database
 ![Database desgine](http://url/to/img.png)
 
-commanads:
-# python manage.py load-fixtures
-
+#commanads:
+ 
+ python manage.py load-fixtures(it makemigration and migrate and load data to database)
+ python manage.py runserver
+ 
