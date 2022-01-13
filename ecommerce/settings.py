@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     #* Third party app
     'mptt',
+    "django_elasticsearch_dsl",
 ]
 
 MIDDLEWARE = [
@@ -146,3 +147,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ElasticSearch config
+
+ELASTICSEARCH_DSL = {
+    "default":{
+        "hosts":"localhost:9200"
+        },
+}

@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   db:
@@ -10,14 +10,19 @@ services:
 
     environment:
       - POSTGRES_DB=posgres
-      - POSTGRES_USER=postgres  
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgre
     volumes:
-      - pgdata:/var/lib/postgresql/data  
-  
-      
+      - pgdata:/var/lib/postgresql/data
 
- 
+  esearch:
+    container_name: search
+    image: elasticsearch:7.14.2
+    environment:
+      - discovery.type=single-node
+
+    ports:
+      - "9200:9200"
+
 volumes:
-   pgdata:    
-
+  pgdata:
