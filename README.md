@@ -7,6 +7,6 @@ make a managemend command to add your fixture data to database
 
 #commanads:
  
- python manage.py load-fixtures(it makemigration and migrate and load data to database)
+ python manage.py load-fixtures(it makemigrate and migrate and load data to database)
  python manage.py runserver
  
