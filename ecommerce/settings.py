@@ -43,10 +43,12 @@ INSTALLED_APPS = [
     'ecommerce.dashboard',
     'ecommerce.inventory',
     'ecommerce.demo',
+    'ecommerce.drf',
 
     #* Third party app
     'mptt',
     "django_elasticsearch_dsl",
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
@@ -154,4 +156,9 @@ ELASTICSEARCH_DSL = {
     "default":{
         "hosts":"localhost:9200"
         },
+}
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS":"rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE":10,
 }
