@@ -1,13 +1,7 @@
 from django.db.models.fields.related import ManyToManyField
-from ecommerce.inventory.models import (
-    Brand,
-    Category,
-    Media,
-    Product,
-    ProductAttributeValue,
-    ProductInventory,
-    ProductType,
-)
+from ecommerce.inventory.models import (Brand, Category, Media, Product,
+                                        ProductAttributeValue,
+                                        ProductInventory, ProductType)
 from rest_framework import serializers
 
 
@@ -41,7 +35,7 @@ class MediaSerializer(serializers.ModelSerializer):
         editable = False
 
     def get_img_url(self, obj):
-        return self.context["request"].build_absolute_uri(obj.img_url.url)
+        return self.context["request"].build_absolute_uri(obj.image.url)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -77,28 +71,18 @@ class ProductInventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductInventory
         fields = [
+            "id",
             "sku",
-            "price",
+            "store_price",
             "is_default",
             "product",
             "image",
             "type",
             "brand",
             "attributes",
+            "price",
+            
         ]
         read_only = True
 
 
-
-
-
-class SingleProductSerializer(serializers.HyperlinkedModelSerializer):
-    category = serializers.StringRelatedField(many=True)
-    product = serializers.StringRelatedField(many=True)
-    product = ProductInventorySerializer(many=True, read_only=True)
-    #*Nested Approach
-    web_id = ProductSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = ProductInventory
-        fields = ["sku", "retail_price", "is_default", "web_id"]

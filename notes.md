@@ -44,3 +44,9 @@ https://django-ecommerce-project-v2.readthedocs.io/en/latest/
 ```
 https://www.kaggle.com/datafiniti/womens-shoes-prices
 ```
+
+
+"""
+add a app tp specific folder
+""""
+python manage.py startapp search .\ecommerce\search

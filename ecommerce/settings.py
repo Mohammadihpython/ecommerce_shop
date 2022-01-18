@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'ecommerce.inventory',
     'ecommerce.demo',
     'ecommerce.drf',
+    'ecommerce.search',
+    
 
     #* Third party app
     'mptt',
@@ -151,7 +153,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ElasticSearch config
-
+"""
+instance for elastic search
+"""
 ELASTICSEARCH_DSL = {
     "default":{
         "hosts":"localhost:9200"
