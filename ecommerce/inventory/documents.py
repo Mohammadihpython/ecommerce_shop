@@ -1,46 +1,46 @@
-# from dataclasses import field
-# from django_elasticsearch_dsl import Document,fields
-# from django_elasticsearch_dsl.registries import registry
+from dataclasses import field
+from django_elasticsearch_dsl import Document,fields
+from django_elasticsearch_dsl.registries import registry
 
-# from .models import ProductInventory
+from .models import ProductInventory
 
 
-# @registry.register_document
-# class ProductInventoryDocument(Document):
-#     """
-#     for get foreignkey field data
-#     """
-#     product =fields.ObjectField(
-#         properties={
-#             "name":fields.TextField()
-#         }
-#     )
+@registry.register_document
+class ProductInventoryDocument(Document):
+    """
+    for get foreignkey field data
+    """
+    product =fields.ObjectField(
+        properties={
+            "name":fields.TextField()
+        }
+    )
     
-#     """
-#     foreignkey field data to stock model product_inventory is a related_name in stock model
-#     """
+    """
+    foreignkey field data to stock model product_inventory is a related_name in stock model
+    """
     
-#     product_inventory =fields.ObjectField(
-#         properties={
-#             "units":fields.IntegerField()
-#         }
-#     )
-    
-    
+    product_inventory =fields.ObjectField(
+        properties={
+            "units":fields.IntegerField()
+        }
+    )
     
     
-#     """
-#     here we make name for index that have our document
-#     """
-#     class Index:
-#         name = "productinventory"
-#     """
-#     here we access django model and say with fields we want
-#     """
-#     class Django:
-#         model = ProductInventory
+    
+    
+    """
+    here we make name for index that have our document
+    """
+    class Index:
+        name = "productinventory"
+    """
+    here we access django model and say with fields we want
+    """
+    class Django:
+        model = ProductInventory
 
-#         fields = ["id", "sku"]
+        fields = ["id", "sku"]
 
 # """
 #  how get information from elasticsearch?

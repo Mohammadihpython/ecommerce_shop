@@ -1,6 +1,6 @@
 import pytest
 from django.core.management import call_command
-
+from rest_framework.test import APIClient
 
 @pytest.fixture
 def create_admin_user(django_user_model):
@@ -27,3 +27,10 @@ def db_fixture_setup(django_db_setup, django_db_blocker):
         call_command("loaddata", "db_product_attribute_fixture.json")
         call_command("loaddata", "db_product_attribute_value_fixture.json")
         call_command("loaddata", "db_product_attribute_values_fixture.json")
+
+@pytest.fixture
+def api_client():
+    return APIClient
+
+
+@pytest.fixture    

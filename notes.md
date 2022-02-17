@@ -50,3 +50,12 @@ https://www.kaggle.com/datafiniti/womens-shoes-prices
 add a app tp specific folder
 """"
 python manage.py startapp search .\ecommerce\search
+
+
+
+
+When making unit tests, we will want to mock access to external APIs, to the db and to internal code. That’s where the following libraries will be helpful:
+
+pytest-mock: to provide unittest.mock objects like a mock object and a non invasive patch function through the mocker fixture.
+requests-mock : to provide a requests factory through the rf fixture and also the ability to mock requests objects.
+django-mock-queries: provides the ability to mock a queryset object and fill it with non persistend object instances
