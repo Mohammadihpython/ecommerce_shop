@@ -1,8 +1,17 @@
 from dataclasses import field
 from django_elasticsearch_dsl import Document, fields
 from django_elasticsearch_dsl.registries import registry
+from elasticsearch import Elasticsearch
 from ecommerce.inventory import models
+from elasticsearch_dsl import connections
 
+connections.configure(
+    default={'hosts': 'localhost'},
+    dev={
+        'hosts': ['127.0.0.1:9300'],
+        'sniff_on_start': True
+    }
+)
 
 @registry.register_document
 class ProductInventoryDocument(Document):

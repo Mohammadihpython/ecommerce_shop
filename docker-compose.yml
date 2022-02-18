@@ -15,14 +15,62 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  esearch:
-    container_name: search
-    image: elasticsearch:7.14.2
-    environment:
-      - discovery.type=single-node
+  # esearch:
+  #   container_name: esearch
+  #   image: elasticsearch:7.14.2
+  #   environment:
+  #     - discovery.type=single-node
 
+  #   ports:
+  #     - "9300:9300"
+
+ 
+  
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+    container_name: elasticsearch
     ports:
-      - "9200:9200"
+      - 9200:9200
+
+    environment:
+      discovery.type: single-node
+    networks:
+      - efk
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.8.0
+    ports:
+      - 5601:5601
+    networks:
+      - efk
+    links:
+      - elasticsearch
+    depends_on:
+      - elasticsearch
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.8.0
+    volumes:
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./logs/:/usr/share/filebeat/logs
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    networks:
+      - efk
+    links:
+      - kibana
+      - elasticsearch
+    depends_on:
+      - elasticsearch
+
+
+
+
+networks:
+  efk:
+    driver: bridge
+   
+
 
 volumes:
   pgdata:

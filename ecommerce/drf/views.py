@@ -4,11 +4,16 @@ from ecommerce.drf.serializer import (ProductInventorySerializer,
 from ecommerce.inventory.models import Product, ProductInventory
 from rest_framework import mixins, permissions, viewsets
 from rest_framework.response import Response
+import logging
 
-
+"""
+connect to logging config
+"""
+logger = logging.getLogger("loggers")
 class ProductByCategory(
-    viewsets.GenericViewSet,
     mixins.ListModelMixin,
+    viewsets.GenericViewSet,
+    
 ):
     """
     API endpoint that returns products by category
@@ -16,8 +21,16 @@ class ProductByCategory(
 
     queryset = ProductInventory.objects.all()
 
-    def list(self, request, slug=None):
-        queryset = ProductInventory.objects.filter(
+    def list(self, request, slug=None,*args,**kwargs):
+        """
+        show product by category and loging
+        """
+        message = {
+            "message":"user views list of product by category"
+        }
+        logger.info(message)
+        
+        queryset = self.queryset.filter(
             product__category__slug=slug,
         ).filter(is_default=True)[:10]
         print(queryset)

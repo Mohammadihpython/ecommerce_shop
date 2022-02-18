@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'ecommerce.demo',
     'ecommerce.drf',
     'ecommerce.search',
+    'ecommerce.inventory_logs',
     
 
     #* Third party app
@@ -158,11 +159,41 @@ instance for elastic search
 """
 ELASTICSEARCH_DSL = {
     "default":{
-        "hosts":"localhost:9200"
+        "hosts":"localhost:9300"
         },
 }
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS":"rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE":10,
+}
+
+"""
+Here i set configs for elastic log with filebeat and Kibana
+
+"""
+LOGGING = {
+ 'version': 1,
+ 'disable_existing_loggers': False,
+ 'formatters': {
+  'simple': {
+   'format': '[%(asctime)s] %(levelname)s | %(funcName)s | %(name)s | %(message)s',
+   'datefmt': '%Y-%m-%d %H:%M:%S',
+  },
+ },
+ 'handlers': {
+  'logger': {
+   'level': 'DEBUG',
+   'class': 'logging.handlers.RotatingFileHandler',
+   'filename': BASE_DIR / 'logs/test.log',
+   'formatter': 'simple',
+  },
+  
+ },
+ 'loggers': {
+  'signal': {
+   'handlers': ['logger'],
+   'level': 'DEBUG',
+  }
+ }
 }
