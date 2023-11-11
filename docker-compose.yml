@@ -14,16 +14,6 @@ services:
       - POSTGRES_PASSWORD=postgre
     volumes:
       - pgdata:/var/lib/postgresql/data
-
-  # esearch:
-  #   container_name: esearch
-  #   image: elasticsearch:7.14.2
-  #   environment:
-  #     - discovery.type=single-node
-
-  #   ports:
-  #     - "9300:9300"
-
  
   
   elasticsearch:
@@ -47,21 +37,26 @@ services:
       - elasticsearch
     depends_on:
       - elasticsearch
+  app:
+    build:
+      context: .
+      
 
-  filebeat:
-    image: docker.elastic.co/beats/filebeat:7.8.0
-    volumes:
-      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-      - ./logs/:/usr/share/filebeat/logs
-    environment:
-      ELASTICSEARCH_URL: http://elasticsearch:9200
-    networks:
-      - efk
-    links:
-      - kibana
-      - elasticsearch
-    depends_on:
-      - elasticsearch
+
+  # filebeat:
+  #   image: docker.elastic.co/beats/filebeat:7.8.0
+  #   volumes:
+  #     - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+  #     - ./logs/:/usr/share/filebeat/logs
+  #   environment:
+  #     ELASTICSEARCH_URL: http://elasticsearch:9200
+  #   networks:
+  #     - efk
+  #   links:
+  #     - kibana
+  #     - elasticsearch
+  #   depends_on:
+  #     - elasticsearch
 
 
 

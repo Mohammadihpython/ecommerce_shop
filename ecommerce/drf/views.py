@@ -13,7 +13,7 @@ logger = logging.getLogger("loggers")
 class ProductByCategory(
     mixins.ListModelMixin,
     viewsets.GenericViewSet,
-    
+
 ):
     """
     API endpoint that returns products by category
@@ -29,11 +29,12 @@ class ProductByCategory(
             "message":"user views list of product by category"
         }
         logger.info(message)
-        
+
         queryset = self.queryset.filter(
             product__category__slug=slug,
         ).filter(is_default=True)[:10]
-        print(queryset)
+
+      
         serializer = ProductInventorySerializer(
             queryset, context={"request": request}, many=True
         )
@@ -86,7 +87,7 @@ class AllProductViewSet(
 #     https://www.django-rest-framework.org/api-guide/viewsets/
 #     """
 #     """
-#     here if front end developer set 
+#     here if front end developer set
 #     product attribute it return this product
 #     """
 

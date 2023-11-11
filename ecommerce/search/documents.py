@@ -1,7 +1,7 @@
-from dataclasses import field
+
 from django_elasticsearch_dsl import Document, fields
 from django_elasticsearch_dsl.registries import registry
-from elasticsearch import Elasticsearch
+
 from ecommerce.inventory import models
 from elasticsearch_dsl import connections
 
@@ -22,10 +22,10 @@ class ProductInventoryDocument(Document):
     )
     class Index:
         name ="productinventory"
-    
+
     class Django:
         model =models.ProductInventory
-        
+
         """
         this fields must same with fields in your serializer
         """
@@ -35,5 +35,5 @@ class ProductInventoryDocument(Document):
             "store_price",
             "is_default",
         ]
-            
+
 

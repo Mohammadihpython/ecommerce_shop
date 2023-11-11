@@ -15,7 +15,7 @@ def test_dashboard_admin_login(
     user = User.objects.get(id=1)
     browser = chrome_browser_instance
 
-    browser.get(("{}{}" .format(live_server.url, "/admin/login/")))
+    browser.get(f"{live_server.url}/admin/login/")
 
     user_name = browser.find_element(By.NAME, "username")
     user_password = browser.find_element(By.NAME, "password")
